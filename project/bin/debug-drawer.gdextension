@@ -1,0 +1,57 @@
+[configuration]
+
+entry_symbol = "debug_drawer_init"
+compatibility_minimum = "4.1"
+reloadable = false
+
+[libraries]
+; Relative paths ensure that our GDExtension can be placed anywhere in the project directory.
+macos.single.debug = "./macos/libDebug-Drawer.macos.template_debug.dylib"
+macos.double.debug = "./macos/libDebug-Drawer.macos.template_debug.double.dylib"
+macos.single.release = "./macos/libDebug-Drawer.macos.template_release.dylib"
+macos.double.release = "./macos/libDebug-Drawer.macos.template_release.double.dylib"
+
+ios.arm64.single.debug = "./ios/libDebug-Drawer.ios.template_debug.arm64.dylib"
+ios.arm64.double.debug = "./ios/libDebug-Drawer.ios.template_debug.arm64.double.dylib"
+ios.arm64.single.release = "./ios/libDebug-Drawer.ios.template_release.arm64.dylib"
+ios.arm64.double.release = "./ios/libDebug-Drawer.ios.template_release.arm64.double.dylib"
+
+windows.x86_32.single.debug = "./windows/Debug-Drawer.windows.template_debug.x86_32.dll"
+windows.x86_32.double.debug = "./windows/Debug-Drawer.windows.template_debug.x86_32.double.dll"
+windows.x86_32.single.release = "./windows/Debug-Drawer.windows.template_release.x86_32.dll"
+windows.x86_32.double.release = "./windows/Debug-Drawer.windows.template_release.x86_32.double.dll"
+
+windows.x86_64.single.debug = "./windows/Debug-Drawer.windows.template_debug.x86_64.dll"
+windows.x86_64.double.debug = "./windows/Debug-Drawer.windows.template_debug.x86_64.double.dll"
+windows.x86_64.single.release = "./windows/Debug-Drawer.windows.template_release.x86_64.dll"
+windows.x86_64.double.release = "./windows/Debug-Drawer.windows.template_release.x86_64.double.dll"
+
+linux.x86_64.single.debug = "./linux/libDebug-Drawer.linux.template_debug.x86_64.so"
+linux.x86_64.double.debug = "./linux/libDebug-Drawer.linux.template_debug.x86_64.double.so"
+linux.x86_64.single.release = "./linux/libDebug-Drawer.linux.template_release.x86_64.so"
+linux.x86_64.double.release = "./linux/libDebug-Drawer.linux.template_release.x86_64.double.so"
+
+linux.arm64.single.debug = "./linux/libDebug-Drawer.linux.template_debug.arm64.so"
+linux.arm64.double.debug = "./linux/libDebug-Drawer.linux.template_debug.arm64.double.so"
+linux.arm64.single.release = "./linux/libDebug-Drawer.linux.template_release.arm64.so"
+linux.arm64.double.release = "./linux/libDebug-Drawer.linux.template_release.arm64.double.so"
+
+linux.rv64.single.debug = "./linux/libDebug-Drawer.linux.template_debug.rv64.so"
+linux.rv64.double.debug = "./linux/libDebug-Drawer.linux.template_debug.rv64.double.so"
+linux.rv64.single.release = "./linux/libDebug-Drawer.linux.template_release.rv64.so"
+linux.rv64.double.release = "./linux/libDebug-Drawer.linux.template_release.rv64.double.so"
+
+android.x86_64.single.debug = "./android/libDebug-Drawer.android.template_debug.x86_64.so"
+android.x86_64.double.debug = "./android/libDebug-Drawer.android.template_debug.x86_64.double.so"
+android.x86_64.single.release = "./android/libDebug-Drawer.android.template_release.x86_64.so"
+android.x86_64.double.release = "./android/libDebug-Drawer.android.template_release.x86_64.double.so"
+
+android.arm64.single.debug = "./android/libDebug-Drawer.android.template_debug.arm64.so"
+android.arm64.double.debug = "./android/libDebug-Drawer.android.template_debug.arm64.double.so"
+android.arm64.single.release = "./android/libDebug-Drawer.android.template_release.arm64.so"
+android.arm64.double.release = "./android/libDebug-Drawer.android.template_release.arm64.double.so"
+
+web.wasm32.single.debug = "./web/libDebug-Drawer.web.template_debug.wasm32.nothreads.wasm"
+web.wasm32.double.debug = "./web/libDebug-Drawer.web.template_debug.wasm32.double.nothreads.wasm"
+web.wasm32.single.release = "./web/libDebug-Drawer.web.template_release.wasm32.nothreads.wasm"
+web.wasm32.double.release = "./web/libDebug-Drawer.web.template_release.wasm32.double.nothreads.wasm"
