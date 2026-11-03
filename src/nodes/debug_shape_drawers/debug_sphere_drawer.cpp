@@ -47,20 +47,15 @@ MultiMeshBatch& DebugSphereDrawer::get_lines_batch(int32_t p_resolution) {
 	line_mesh_data.vertices = sphere.vertices;
 
 	std::unordered_set<int64_t> added_edges;
-	auto add_edge = [&](int32_t p_a, int32_t p_b) {
-		if (added_edges.insert(get_edge_key(p_a, p_b)).second) {
-			line_mesh_data.add_line_indices(p_a, p_b);
-		}
-	};
 
 	for (size_t index = 0; index + 2 < sphere.indices.size(); index += 3) {
 		const int32_t a = sphere.indices[index + 0];
 		const int32_t b = sphere.indices[index + 1];
 		const int32_t c = sphere.indices[index + 2];
 
-		add_edge(a, b);
-		add_edge(b, c);
-		add_edge(c, a);
+		add_line_edge(line_mesh_data, added_edges, a, b);
+		add_line_edge(line_mesh_data, added_edges, b, c);
+		add_line_edge(line_mesh_data, added_edges, c, a);
 	}
 
 	if (lines_material.is_null()) {
@@ -178,6 +173,12 @@ int32_t DebugSphereDrawer::get_midpoint_index(MeshData& r_mesh_data, std::unorde
 	r_added_midpoints.emplace(key, midpoint_index);
 
 	return midpoint_index;
+}
+
+void DebugSphereDrawer::add_line_edge(MeshData& r_mesh_data, std::unordered_set<int64_t>& r_added_edges, int32_t p_a, int32_t p_b) {
+	if (r_added_edges.insert(get_edge_key(p_a, p_b)).second) {
+		r_mesh_data.add_line_indices(p_a, p_b);
+	}
 }
 
 int64_t DebugSphereDrawer::get_edge_key(int32_t p_a, int32_t p_b) {

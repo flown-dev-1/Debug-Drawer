@@ -6,6 +6,7 @@
 #include <godot_cpp/classes/standard_material3d.hpp>
 
 #include <unordered_map>
+#include <unordered_set>
 
 class DebugSphereDrawer : public DebugShapeDrawer {
 	GDCLASS(DebugSphereDrawer, DebugShapeDrawer)
@@ -23,6 +24,7 @@ class DebugSphereDrawer : public DebugShapeDrawer {
 	static MeshData create_icosahedron();
 	static MeshData subdivide(MeshData& r_mesh_data);
 	static int32_t get_midpoint_index(MeshData& r_mesh_data, std::unordered_map<int64_t, int32_t>& r_added_midpoints, int32_t p_a, int32_t p_b);
+	static void add_line_edge(MeshData& r_mesh_data, std::unordered_set<int64_t>& r_added_edges, int32_t p_a, int32_t p_b);
 	static int64_t get_edge_key(int32_t p_a, int32_t p_b);
 
 protected:
