@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="DebugSphereDrawer" inherits="DebugShapeDrawer" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Internal sphere drawer. Exposes the [enum SphereResolution] enum.
+	</brief_description>
+	<description>
+		Used internally by [DebugDrawer]. It cannot be instantiated.
+	</description>
+	<tutorials>
+	</tutorials>
+	<constants>
+		<constant name="LOWEST" value="0" enum="SphereResolution">
+			The base icosahedron (20 faces).
+		</constant>
+		<constant name="LOW" value="1" enum="SphereResolution">
+			The base icosahedron, subdivided once.
+		</constant>
+		<constant name="MEDIUM" value="2" enum="SphereResolution">
+			The base icosahedron, subdivided twice.
+		</constant>
+		<constant name="HIGH" value="3" enum="SphereResolution">
+			The base icosahedron, subdivided three times.
+		</constant>
+		<constant name="HIGHEST" value="4" enum="SphereResolution">
+			The base icosahedron, subdivided four times.
+		</constant>
+	</constants>
+</class>

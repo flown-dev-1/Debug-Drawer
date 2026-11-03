@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GlobalDebugDrawer" inherits="Object" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Instance that forwards draw calls to the global [DebugDrawer].
+	</brief_description>
+	<description>
+		Lets any script draw debug shapes without holding a reference to a [DebugDrawer]. Calls are forwarded to the first [DebugDrawer] in the scene tree with [member DebugDrawer.global] enabled.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="draw_cube">
+			<return type="void" />
+			<param index="0" name="center" type="Vector3" />
+			<param index="1" name="size" type="Vector3" />
+			<param index="2" name="line_color" type="Color" />
+			<param index="3" name="fill_color" type="Color" default="Color(0, 0, 0, 0)" />
+			<description>
+				Draws an axis-aligned cube centered on [param center] with the given [param size].
+			</description>
+		</method>
+		<method name="draw_cube_rotated">
+			<return type="void" />
+			<param index="0" name="center" type="Vector3" />
+			<param index="1" name="size" type="Vector3" />
+			<param index="2" name="rotation" type="Quaternion" />
+			<param index="3" name="line_color" type="Color" />
+			<param index="4" name="fill_color" type="Color" default="Color(0, 0, 0, 0)" />
+			<description>
+				Draws a cube centered on [param center] with the given [param size], rotated around its center by [param rotation].
+			</description>
+		</method>
+		<method name="draw_cylinder">
+			<return type="void" />
+			<param index="0" name="center" type="Vector3" />
+			<param index="1" name="height" type="float" />
+			<param index="2" name="top_radius" type="float" />
+			<param index="3" name="bottom_radius" type="float" />
+			<param index="4" name="resolution" type="int" />
+			<param index="5" name="line_color" type="Color" />
+			<param index="6" name="fill_color" type="Color" default="Color(0, 0, 0, 0)" />
+			<description>
+				Draws a cylinder centered on [param center].
+			</description>
+		</method>
+		<method name="draw_cylinder_rotated">
+			<return type="void" />
+			<param index="0" name="center" type="Vector3" />
+			<param index="1" name="height" type="float" />
+			<param index="2" name="top_radius" type="float" />
+			<param index="3" name="bottom_radius" type="float" />
+			<param index="4" name="rotation" type="Quaternion" />
+			<param index="5" name="resolution" type="int" />
+			<param index="6" name="line_color" type="Color" />
+			<param index="7" name="fill_color" type="Color" default="Color(0, 0, 0, 0)" />
+			<description>
+				Draws a cylinder centered on [param center], rotated around its center by [param rotation].
+			</description>
+		</method>
+		<method name="draw_line">
+			<return type="void" />
+			<param index="0" name="start" type="Vector3" />
+			<param index="1" name="end" type="Vector3" />
+			<param index="2" name="line_color" type="Color" />
+			<description>
+				Draws a line from [param start] to [param end].
+			</description>
+		</method>
+		<method name="draw_path">
+			<return type="void" />
+			<param index="0" name="path" type="PackedVector3Array" />
+			<param index="1" name="line_color" type="Color" />
+			<description>
+				Draws a path from the points in [param path].
+			</description>
+		</method>
+		<method name="draw_sphere">
+			<return type="void" />
+			<param index="0" name="center" type="Vector3" />
+			<param index="1" name="radius" type="float" />
+			<param index="2" name="resolution" type="int" enum="DebugDrawer.SphereResolution" />
+			<param index="3" name="line_color" type="Color" />
+			<param index="4" name="fill_color" type="Color" default="Color(0, 0, 0, 0)" />
+			<description>
+				Draws an ico sphere centered on [param center] with the given [param radius].
+			</description>
+		</method>
+		<method name="draw_text">
+			<return type="void" />
+			<param index="0" name="string" type="String" />
+			<param index="1" name="position" type="Vector3" />
+			<param index="2" name="text_color" type="Color" default="Color(1, 1, 1, 1)" />
+			<param index="3" name="outline_color" type="Color" default="Color(0, 0, 0, 1)" />
+			<param index="4" name="font_size" type="int" default="32" />
+			<param index="5" name="horizontal_alignment" type="int" enum="HorizontalAlignment" default="1" />
+			<param index="6" name="vertical_alignment" type="int" enum="VerticalAlignment" default="1" />
+			<description>
+				Draws billboarded text at [param position].
+			</description>
+		</method>
+		<method name="draw_vector">
+			<return type="void" />
+			<param index="0" name="origin" type="Vector3" />
+			<param index="1" name="vector" type="Vector3" />
+			<param index="2" name="line_color" type="Color" />
+			<param index="3" name="draw_arrow" type="bool" default="true" />
+			<description>
+				Draws a vector from [param origin] to [code]origin + vector[/code].
+			</description>
+		</method>
+		<method name="get_target_debug_drawer" qualifiers="const">
+			<return type="DebugDrawer" />
+			<description>
+				Returns the [DebugDrawer] that global draw calls are currently sent to, or [code]null[/code] if there is none.
+			</description>
+		</method>
+	</methods>
+</class>

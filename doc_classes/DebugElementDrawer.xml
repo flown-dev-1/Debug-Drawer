@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="DebugElementDrawer" inherits="Node3D" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Internal base class for Debug Drawer element drawers.
+	</brief_description>
+	<description>
+		Used internally by [DebugDrawer]. It cannot be instantiated.
+	</description>
+	<tutorials>
+	</tutorials>
+</class>

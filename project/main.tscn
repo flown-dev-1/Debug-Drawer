@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://test_drawer.gd" id="1_tests"]
+
+[node name="Main" type="Node3D"]
+
+[node name="DebugDrawer" type="DebugDrawer" parent="."]
+
+[node name="Tests" type="Node" parent="."]
+script = ExtResource("1_tests")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.2724586)

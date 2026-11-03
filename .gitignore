@@ -2,9 +2,9 @@
 *.gen.*
 .godot/
 
-# Ignore library files but not the gdextension file
+# Ignore library files
 /bin/**
-!project/bin/*.gdextension
+project/addons/debug_drawer/bin/
 
 # Ignore scons database
 .sconsign*.dblite
