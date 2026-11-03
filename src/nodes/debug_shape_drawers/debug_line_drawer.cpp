@@ -7,7 +7,7 @@ void DebugLineDrawer::_enter_tree() {
 	DebugShapeDrawer::_enter_tree();
 
 	if (lines.multimesh.is_null()) {
-		lines = _create_batch(DebugDrawerResources::create_array_mesh(_create_lines_line(), Mesh::PRIMITIVE_LINES, DebugDrawerResources::create_lines_material()));
+		lines = create_batch(DebugDrawerResources::create_array_mesh(create_lines_line(), Mesh::PRIMITIVE_LINES, DebugDrawerResources::create_lines_material()));
 	}
 }
 
@@ -19,7 +19,7 @@ void DebugLineDrawer::draw(const Vector3& p_start, const Vector3& p_end, const C
 	const Vector3 offset = p_end - p_start;
 	const Transform3D instance_transform(Basis(offset, Vector3(), Vector3()), p_start);
 
-	_push_instance(lines, instance_transform, p_line_color);
+	push_instance(lines, instance_transform, p_line_color);
 }
 
 void DebugLineDrawer::finalize() {
@@ -30,7 +30,7 @@ void DebugLineDrawer::reset() {
 	lines.count = 0;
 }
 
-MeshData DebugLineDrawer::_create_lines_line() {
+MeshData DebugLineDrawer::create_lines_line() {
 	MeshData mesh_data;
 	mesh_data.resize_for_vertices(2);
 	mesh_data.resize_for_lines(1);

@@ -17,14 +17,14 @@ class DebugCylinderDrawer : public DebugShapeDrawer {
 	Ref<ShaderMaterial> fill_material;
 	ResolutionBatches fill;
 
-	MultiMeshBatch& _get_lines_batch(int32_t p_resolution);
-	MultiMeshBatch& _get_fill_batch(int32_t p_resolution);
+	MultiMeshBatch& get_lines_batch(int32_t p_resolution);
+	MultiMeshBatch& get_fill_batch(int32_t p_resolution);
 
-	static MeshData _create_lines_cylinder(int32_t p_resolution);
-	static MeshData _create_fill_cylinder(int32_t p_resolution);
-	static void _set_circle_vertices(MeshData& r_mesh_data, int32_t p_index_offset, int32_t p_resolution, const Vector3& p_offset, real_t p_radius);
-	static int32_t _get_top_vertex_index(int32_t p_resolution, int32_t p_segment);
-	static int32_t _get_bottom_vertex_index(int32_t p_resolution, int32_t p_segment);
+	static MeshData create_lines_cylinder(int32_t p_resolution);
+	static MeshData create_fill_cylinder(int32_t p_resolution);
+	static void set_circle_vertices(MeshData& r_mesh_data, int32_t p_index_offset, int32_t p_resolution, const Vector3& p_offset, real_t p_radius);
+	static int32_t get_top_vertex_index(int32_t p_resolution, int32_t p_segment);
+	static int32_t get_bottom_vertex_index(int32_t p_resolution, int32_t p_segment);
 
 protected:
 	static void _bind_methods() {}

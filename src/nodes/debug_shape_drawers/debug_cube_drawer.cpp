@@ -7,11 +7,11 @@ void DebugCubeDrawer::_enter_tree() {
 	DebugShapeDrawer::_enter_tree();
 
 	if (lines.multimesh.is_null()) {
-		lines = _create_batch(DebugDrawerResources::create_array_mesh(_create_lines_cube(), Mesh::PRIMITIVE_LINES, DebugDrawerResources::create_lines_material()));
+		lines = create_batch(DebugDrawerResources::create_array_mesh(create_lines_cube(), Mesh::PRIMITIVE_LINES, DebugDrawerResources::create_lines_material()));
 	}
 
 	if (fill.multimesh.is_null()) {
-		fill = _create_batch(DebugDrawerResources::create_array_mesh(_create_fill_cube(), Mesh::PRIMITIVE_TRIANGLES, DebugDrawerResources::create_fill_material()));
+		fill = create_batch(DebugDrawerResources::create_array_mesh(create_fill_cube(), Mesh::PRIMITIVE_TRIANGLES, DebugDrawerResources::create_fill_material()));
 	}
 }
 
@@ -23,11 +23,11 @@ void DebugCubeDrawer::draw(const Vector3& p_center, const Vector3& p_size, const
 	const Transform3D instance_transform(Basis(p_rotation).scaled_local(p_size), p_center);
 
 	if (p_line_color.a > 0.0f) {
-		_push_instance(lines, instance_transform, p_line_color);
+		push_instance(lines, instance_transform, p_line_color);
 	}
 
 	if (p_fill_color.a > 0.0f) {
-		_push_instance(fill, instance_transform, p_fill_color);
+		push_instance(fill, instance_transform, p_fill_color);
 	}
 }
 
@@ -53,7 +53,7 @@ static void set_cube_vertices(MeshData& r_mesh_data) {
 	r_mesh_data.set_vertex(7, Vector3(0.5, 0.5, 0.5));
 }
 
-MeshData DebugCubeDrawer::_create_lines_cube() {
+MeshData DebugCubeDrawer::create_lines_cube() {
 	MeshData mesh_data;
 	set_cube_vertices(mesh_data);
 	mesh_data.resize_for_lines(12);
@@ -74,22 +74,22 @@ MeshData DebugCubeDrawer::_create_lines_cube() {
 	return mesh_data;
 }
 
-MeshData DebugCubeDrawer::_create_fill_cube() {
+MeshData DebugCubeDrawer::create_fill_cube() {
 	MeshData mesh_data;
 	set_cube_vertices(mesh_data);
 	mesh_data.resize_for_triangles(6 * 2);
 
-	_create_fill_face(mesh_data, 0, 0, 1, 2, 3);
-	_create_fill_face(mesh_data, 1, 5, 4, 7, 6);
-	_create_fill_face(mesh_data, 2, 4, 0, 6, 2);
-	_create_fill_face(mesh_data, 3, 1, 5, 3, 7);
-	_create_fill_face(mesh_data, 4, 2, 3, 6, 7);
-	_create_fill_face(mesh_data, 5, 1, 0, 5, 4);
+	create_fill_face(mesh_data, 0, 0, 1, 2, 3);
+	create_fill_face(mesh_data, 1, 5, 4, 7, 6);
+	create_fill_face(mesh_data, 2, 4, 0, 6, 2);
+	create_fill_face(mesh_data, 3, 1, 5, 3, 7);
+	create_fill_face(mesh_data, 4, 2, 3, 6, 7);
+	create_fill_face(mesh_data, 5, 1, 0, 5, 4);
 
 	return mesh_data;
 }
 
-void DebugCubeDrawer::_create_fill_face(MeshData& r_mesh_data, int p_face_index, int32_t p_bottom_left, int32_t p_bottom_right, int32_t p_top_left, int32_t p_top_right) {
+void DebugCubeDrawer::create_fill_face(MeshData& r_mesh_data, int p_face_index, int32_t p_bottom_left, int32_t p_bottom_right, int32_t p_top_left, int32_t p_top_right) {
 	r_mesh_data.set_triangle_indices(p_face_index * 2 + 0, p_bottom_left, p_bottom_right, p_top_right);
 	r_mesh_data.set_triangle_indices(p_face_index * 2 + 1, p_bottom_left, p_top_right, p_top_left);
 }

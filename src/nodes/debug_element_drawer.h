@@ -14,7 +14,7 @@ protected:
 
 	int64_t max_shape_instances = 0;
 
-	void _push_too_many_shapes_warning() const;
+	void push_too_many_shapes_warning() const;
 
 public:
 	void _enter_tree() override;

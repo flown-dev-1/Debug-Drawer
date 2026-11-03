@@ -13,10 +13,10 @@ class DebugShapeDrawer : public DebugElementDrawer {
 protected:
 	static void _bind_methods() {}
 
-	MultiMeshBatch _create_batch(const Ref<ArrayMesh>& p_mesh, bool p_use_custom_data = false);
-	MultiMeshInstance3D* _create_multi_mesh_instance(const Ref<MultiMesh>& p_multimesh);
-	Ref<MultiMesh> _create_multimesh(const Ref<ArrayMesh>& p_mesh, bool p_use_custom_data = false) const;
+	MultiMeshBatch create_batch(const Ref<ArrayMesh>& p_mesh, bool p_use_custom_data = false);
+	MultiMeshInstance3D* create_multi_mesh_instance(const Ref<MultiMesh>& p_multimesh);
+	Ref<MultiMesh> create_multimesh(const Ref<ArrayMesh>& p_mesh, bool p_use_custom_data = false) const;
 
-	bool _push_instance(MultiMeshBatch& p_batch, const Transform3D& p_transform, const Color& p_color);
-	bool _push_instance(MultiMeshBatch& p_batch, const Transform3D& p_transform, const Color& p_color, const Color& p_custom_data);
+	bool push_instance(MultiMeshBatch& p_batch, const Transform3D& p_transform, const Color& p_color);
+	bool push_instance(MultiMeshBatch& p_batch, const Transform3D& p_transform, const Color& p_color, const Color& p_custom_data);
 };

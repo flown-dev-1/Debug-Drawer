@@ -16,14 +16,14 @@ class DebugSphereDrawer : public DebugShapeDrawer {
 	Ref<StandardMaterial3D> fill_material;
 	ResolutionBatches fill;
 
-	MultiMeshBatch& _get_lines_batch(int32_t p_resolution);
-	MultiMeshBatch& _get_fill_batch(int32_t p_resolution);
+	MultiMeshBatch& get_lines_batch(int32_t p_resolution);
+	MultiMeshBatch& get_fill_batch(int32_t p_resolution);
 
-	static MeshData _create_ico_sphere(int32_t p_resolution);
-	static MeshData _create_icosahedron();
-	static MeshData _subdivide(MeshData& r_mesh_data);
-	static int32_t _get_midpoint_index(MeshData& r_mesh_data, std::unordered_map<int64_t, int32_t>& r_added_midpoints, int32_t p_a, int32_t p_b);
-	static int64_t _get_edge_key(int32_t p_a, int32_t p_b);
+	static MeshData create_ico_sphere(int32_t p_resolution);
+	static MeshData create_icosahedron();
+	static MeshData subdivide(MeshData& r_mesh_data);
+	static int32_t get_midpoint_index(MeshData& r_mesh_data, std::unordered_map<int64_t, int32_t>& r_added_midpoints, int32_t p_a, int32_t p_b);
+	static int64_t get_edge_key(int32_t p_a, int32_t p_b);
 
 protected:
 	static void _bind_methods() {}

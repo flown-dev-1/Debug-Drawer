@@ -5,7 +5,7 @@
 void DebugTextDrawer::_enter_tree() {
 	DebugElementDrawer::_enter_tree();
 
-	labels.reserve(static_cast<size_t>(max_shape_instances));
+	labels.reserve(max_shape_instances);
 }
 
 void DebugTextDrawer::draw(const String& p_string, const Vector3& p_position, const Color& p_text_color, const Color& p_outline_color, int32_t p_font_size, HorizontalAlignment p_horizontal_alignment, VerticalAlignment p_vertical_alignment) {
@@ -14,12 +14,12 @@ void DebugTextDrawer::draw(const String& p_string, const Vector3& p_position, co
 	}
 
 	if (count >= max_shape_instances) {
-		_push_too_many_shapes_warning();
+		push_too_many_shapes_warning();
 		return;
 	}
 
 	if (static_cast<size_t>(count) >= labels.size()) {
-		labels.push_back(_create_label());
+		labels.push_back(create_label());
 	}
 
 	Label3D* label = labels[count];
@@ -47,7 +47,7 @@ void DebugTextDrawer::reset() {
 	count = 0;
 }
 
-Label3D* DebugTextDrawer::_create_label() {
+Label3D* DebugTextDrawer::create_label() {
 	Label3D* label = memnew(Label3D);
 
 	label->set_billboard_mode(BaseMaterial3D::BILLBOARD_ENABLED);

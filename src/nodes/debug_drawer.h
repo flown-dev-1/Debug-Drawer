@@ -37,7 +37,7 @@ private:
 	DebugCylinderDrawer* cylinder_drawer = nullptr;
 	DebugTextDrawer* text_drawer = nullptr;
 
-	bool _has_drawers() const {
+	bool has_drawers() const {
 		return cube_drawer != nullptr;
 	}
 

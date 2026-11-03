@@ -63,7 +63,7 @@ struct MeshData {
 
 	godot::PackedVector3Array get_packed_vertices() const {
 		godot::PackedVector3Array result;
-		result.resize(static_cast<int64_t>(vertices.size()));
+		result.resize(vertices.size());
 
 		if (!vertices.empty()) {
 			memcpy(result.ptrw(), vertices.data(), vertices.size() * sizeof(godot::Vector3));
@@ -74,7 +74,7 @@ struct MeshData {
 
 	godot::PackedInt32Array get_packed_indices() const {
 		godot::PackedInt32Array result;
-		result.resize(static_cast<int64_t>(indices.size()));
+		result.resize(indices.size());
 
 		if (!indices.empty()) {
 			memcpy(result.ptrw(), indices.data(), indices.size() * sizeof(int32_t));

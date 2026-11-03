@@ -19,8 +19,8 @@ class GlobalDebugDrawer : public Object {
 	DebugDrawer* target_debug_drawer = nullptr;
 	std::deque<DebugDrawer*> target_debug_drawer_queue;
 
-	bool _check_target() const;
-	void _update_configuration_warnings();
+	bool check_target() const;
+	void refresh_drawer_warnings();
 
 protected:
 	static void _bind_methods();

@@ -8,7 +8,7 @@ class DebugLineDrawer : public DebugShapeDrawer {
 
 	MultiMeshBatch lines;
 
-	static MeshData _create_lines_line();
+	static MeshData create_lines_line();
 
 protected:
 	static void _bind_methods() {}

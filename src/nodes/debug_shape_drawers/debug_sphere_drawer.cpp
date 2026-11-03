@@ -13,16 +13,16 @@ void DebugSphereDrawer::draw(const Vector3& p_center, real_t p_radius, int32_t p
 		return;
 	}
 
-	const int32_t resolution = std::clamp(p_resolution, static_cast<int32_t>(DebugDrawer::LOWEST), static_cast<int32_t>(DebugDrawer::HIGHEST));
+	const int32_t resolution = std::clamp<int32_t>(p_resolution, DebugDrawer::LOWEST, DebugDrawer::HIGHEST);
 
 	const Transform3D instance_transform(Basis::from_scale(Vector3(1.0, 1.0, 1.0) * p_radius), p_center);
 
 	if (p_line_color.a > 0.0f) {
-		_push_instance(_get_lines_batch(resolution), instance_transform, p_line_color);
+		push_instance(get_lines_batch(resolution), instance_transform, p_line_color);
 	}
 
 	if (p_fill_color.a > 0.0f) {
-		_push_instance(_get_fill_batch(resolution), instance_transform, p_fill_color);
+		push_instance(get_fill_batch(resolution), instance_transform, p_fill_color);
 	}
 }
 
@@ -36,19 +36,19 @@ void DebugSphereDrawer::reset() {
 	reset_batches(fill);
 }
 
-MultiMeshBatch& DebugSphereDrawer::_get_lines_batch(int32_t p_resolution) {
+MultiMeshBatch& DebugSphereDrawer::get_lines_batch(int32_t p_resolution) {
 	auto it = lines.find(p_resolution);
 	if (it != lines.end()) {
 		return it->second;
 	}
 
-	MeshData sphere = _create_ico_sphere(p_resolution);
+	MeshData sphere = create_ico_sphere(p_resolution);
 	MeshData line_mesh_data;
 	line_mesh_data.vertices = sphere.vertices;
 
 	std::unordered_set<int64_t> added_edges;
 	auto add_edge = [&](int32_t p_a, int32_t p_b) {
-		if (added_edges.insert(_get_edge_key(p_a, p_b)).second) {
+		if (added_edges.insert(get_edge_key(p_a, p_b)).second) {
 			line_mesh_data.add_line_indices(p_a, p_b);
 		}
 	};
@@ -68,10 +68,10 @@ MultiMeshBatch& DebugSphereDrawer::_get_lines_batch(int32_t p_resolution) {
 	}
 
 	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(line_mesh_data, Mesh::PRIMITIVE_LINES, lines_material);
-	return lines.emplace(p_resolution, _create_batch(mesh)).first->second;
+	return lines.emplace(p_resolution, create_batch(mesh)).first->second;
 }
 
-MultiMeshBatch& DebugSphereDrawer::_get_fill_batch(int32_t p_resolution) {
+MultiMeshBatch& DebugSphereDrawer::get_fill_batch(int32_t p_resolution) {
 	auto it = fill.find(p_resolution);
 	if (it != fill.end()) {
 		return it->second;
@@ -81,21 +81,21 @@ MultiMeshBatch& DebugSphereDrawer::_get_fill_batch(int32_t p_resolution) {
 		fill_material = DebugDrawerResources::create_fill_material();
 	}
 
-	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(_create_ico_sphere(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
-	return fill.emplace(p_resolution, _create_batch(mesh)).first->second;
+	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(create_ico_sphere(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
+	return fill.emplace(p_resolution, create_batch(mesh)).first->second;
 }
 
-MeshData DebugSphereDrawer::_create_ico_sphere(int32_t p_resolution) {
-	MeshData mesh_data = _create_icosahedron();
+MeshData DebugSphereDrawer::create_ico_sphere(int32_t p_resolution) {
+	MeshData mesh_data = create_icosahedron();
 
 	for (int32_t subdivision = 0; subdivision < p_resolution; subdivision++) {
-		mesh_data = _subdivide(mesh_data);
+		mesh_data = subdivide(mesh_data);
 	}
 
 	return mesh_data;
 }
 
-MeshData DebugSphereDrawer::_create_icosahedron() {
+MeshData DebugSphereDrawer::create_icosahedron() {
 	MeshData mesh_data;
 	mesh_data.resize_for_vertices(12);
 	mesh_data.resize_for_triangles(20);
@@ -139,7 +139,7 @@ MeshData DebugSphereDrawer::_create_icosahedron() {
 	return mesh_data;
 }
 
-MeshData DebugSphereDrawer::_subdivide(MeshData& r_mesh_data) {
+MeshData DebugSphereDrawer::subdivide(MeshData& r_mesh_data) {
 	std::unordered_map<int64_t, int32_t> added_midpoints;
 	std::vector<int32_t> new_indices;
 	new_indices.reserve(r_mesh_data.indices.size() * 4);
@@ -149,9 +149,9 @@ MeshData DebugSphereDrawer::_subdivide(MeshData& r_mesh_data) {
 		const int32_t b = r_mesh_data.indices[index + 1];
 		const int32_t c = r_mesh_data.indices[index + 2];
 
-		const int32_t ab = _get_midpoint_index(r_mesh_data, added_midpoints, a, b);
-		const int32_t bc = _get_midpoint_index(r_mesh_data, added_midpoints, b, c);
-		const int32_t ca = _get_midpoint_index(r_mesh_data, added_midpoints, c, a);
+		const int32_t ab = get_midpoint_index(r_mesh_data, added_midpoints, a, b);
+		const int32_t bc = get_midpoint_index(r_mesh_data, added_midpoints, b, c);
+		const int32_t ca = get_midpoint_index(r_mesh_data, added_midpoints, c, a);
 
 		new_indices.insert(new_indices.end(), { a, ab, ca });
 		new_indices.insert(new_indices.end(), { b, bc, ab });
@@ -165,8 +165,8 @@ MeshData DebugSphereDrawer::_subdivide(MeshData& r_mesh_data) {
 	return new_mesh_data;
 }
 
-int32_t DebugSphereDrawer::_get_midpoint_index(MeshData& r_mesh_data, std::unordered_map<int64_t, int32_t>& r_added_midpoints, int32_t p_a, int32_t p_b) {
-	const int64_t key = _get_edge_key(p_a, p_b);
+int32_t DebugSphereDrawer::get_midpoint_index(MeshData& r_mesh_data, std::unordered_map<int64_t, int32_t>& r_added_midpoints, int32_t p_a, int32_t p_b) {
+	const int64_t key = get_edge_key(p_a, p_b);
 
 	auto it = r_added_midpoints.find(key);
 	if (it != r_added_midpoints.end()) {
@@ -180,6 +180,6 @@ int32_t DebugSphereDrawer::_get_midpoint_index(MeshData& r_mesh_data, std::unord
 	return midpoint_index;
 }
 
-int64_t DebugSphereDrawer::_get_edge_key(int32_t p_a, int32_t p_b) {
-	return (static_cast<int64_t>(std::min(p_a, p_b)) << 32) | static_cast<int64_t>(std::max(p_a, p_b));
+int64_t DebugSphereDrawer::get_edge_key(int32_t p_a, int32_t p_b) {
+	return (static_cast<int64_t>(std::min(p_a, p_b)) << 32) | std::max(p_a, p_b);
 }

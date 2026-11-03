@@ -20,11 +20,11 @@ void DebugCylinderDrawer::draw(const Vector3& p_center, real_t p_height, real_t 
 	const Color instance_custom_data(p_top_radius, p_bottom_radius, 0.0f, 0.0f);
 
 	if (p_line_color.a > 0.0f) {
-		_push_instance(_get_lines_batch(resolution), instance_transform, p_line_color, instance_custom_data);
+		push_instance(get_lines_batch(resolution), instance_transform, p_line_color, instance_custom_data);
 	}
 
 	if (p_fill_color.a > 0.0f) {
-		_push_instance(_get_fill_batch(resolution), instance_transform, p_fill_color, instance_custom_data);
+		push_instance(get_fill_batch(resolution), instance_transform, p_fill_color, instance_custom_data);
 	}
 }
 
@@ -38,7 +38,7 @@ void DebugCylinderDrawer::reset() {
 	reset_batches(fill);
 }
 
-MultiMeshBatch& DebugCylinderDrawer::_get_lines_batch(int32_t p_resolution) {
+MultiMeshBatch& DebugCylinderDrawer::get_lines_batch(int32_t p_resolution) {
 	auto it = lines.find(p_resolution);
 	if (it != lines.end()) {
 		return it->second;
@@ -48,11 +48,11 @@ MultiMeshBatch& DebugCylinderDrawer::_get_lines_batch(int32_t p_resolution) {
 		lines_material = DebugDrawerResources::create_shader_material(DebugDrawerShaders::CYLINDER_LINES);
 	}
 
-	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(_create_lines_cylinder(p_resolution), Mesh::PRIMITIVE_LINES, lines_material);
-	return lines.emplace(p_resolution, _create_batch(mesh, true)).first->second;
+	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(create_lines_cylinder(p_resolution), Mesh::PRIMITIVE_LINES, lines_material);
+	return lines.emplace(p_resolution, create_batch(mesh, true)).first->second;
 }
 
-MultiMeshBatch& DebugCylinderDrawer::_get_fill_batch(int32_t p_resolution) {
+MultiMeshBatch& DebugCylinderDrawer::get_fill_batch(int32_t p_resolution) {
 	auto it = fill.find(p_resolution);
 	if (it != fill.end()) {
 		return it->second;
@@ -62,23 +62,23 @@ MultiMeshBatch& DebugCylinderDrawer::_get_fill_batch(int32_t p_resolution) {
 		fill_material = DebugDrawerResources::create_shader_material(DebugDrawerShaders::CYLINDER_FILL);
 	}
 
-	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(_create_fill_cylinder(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
-	return fill.emplace(p_resolution, _create_batch(mesh, true)).first->second;
+	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(create_fill_cylinder(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
+	return fill.emplace(p_resolution, create_batch(mesh, true)).first->second;
 }
 
-MeshData DebugCylinderDrawer::_create_lines_cylinder(int32_t p_resolution) {
+MeshData DebugCylinderDrawer::create_lines_cylinder(int32_t p_resolution) {
 	MeshData mesh_data;
 	mesh_data.resize_for_vertices(p_resolution * 2);
 	mesh_data.resize_for_lines(p_resolution * 3);
 
-	_set_circle_vertices(mesh_data, 0, p_resolution, Vector3(0.0, -0.5, 0.0), 1.0);
-	_set_circle_vertices(mesh_data, p_resolution, p_resolution, Vector3(0.0, 0.5, 0.0), 1.0);
+	set_circle_vertices(mesh_data, 0, p_resolution, Vector3(0.0, -0.5, 0.0), 1.0);
+	set_circle_vertices(mesh_data, p_resolution, p_resolution, Vector3(0.0, 0.5, 0.0), 1.0);
 
 	for (int32_t segment = 0; segment < p_resolution; segment++) {
-		const int32_t top_index = _get_top_vertex_index(p_resolution, segment);
-		const int32_t next_top_index = _get_top_vertex_index(p_resolution, segment + 1);
-		const int32_t bottom_index = _get_bottom_vertex_index(p_resolution, segment);
-		const int32_t next_bottom_index = _get_bottom_vertex_index(p_resolution, segment + 1);
+		const int32_t top_index = get_top_vertex_index(p_resolution, segment);
+		const int32_t next_top_index = get_top_vertex_index(p_resolution, segment + 1);
+		const int32_t bottom_index = get_bottom_vertex_index(p_resolution, segment);
+		const int32_t next_bottom_index = get_bottom_vertex_index(p_resolution, segment + 1);
 
 		const int32_t line_index = segment * 3;
 
@@ -90,13 +90,13 @@ MeshData DebugCylinderDrawer::_create_lines_cylinder(int32_t p_resolution) {
 	return mesh_data;
 }
 
-MeshData DebugCylinderDrawer::_create_fill_cylinder(int32_t p_resolution) {
+MeshData DebugCylinderDrawer::create_fill_cylinder(int32_t p_resolution) {
 	MeshData mesh_data;
 	mesh_data.resize_for_vertices(p_resolution * 2 + 2);
 	mesh_data.resize_for_triangles(p_resolution * 4);
 
-	_set_circle_vertices(mesh_data, 0, p_resolution, Vector3(0.0, -0.5, 0.0), 1.0);
-	_set_circle_vertices(mesh_data, p_resolution, p_resolution, Vector3(0.0, 0.5, 0.0), 1.0);
+	set_circle_vertices(mesh_data, 0, p_resolution, Vector3(0.0, -0.5, 0.0), 1.0);
+	set_circle_vertices(mesh_data, p_resolution, p_resolution, Vector3(0.0, 0.5, 0.0), 1.0);
 
 	const int32_t top_center_index = p_resolution * 2;
 	const int32_t bottom_center_index = p_resolution * 2 + 1;
@@ -105,10 +105,10 @@ MeshData DebugCylinderDrawer::_create_fill_cylinder(int32_t p_resolution) {
 	mesh_data.set_vertex(bottom_center_index, Vector3(0.0, -0.5, 0.0));
 
 	for (int32_t segment = 0; segment < p_resolution; segment++) {
-		const int32_t top_index = _get_top_vertex_index(p_resolution, segment);
-		const int32_t next_top_index = _get_top_vertex_index(p_resolution, segment + 1);
-		const int32_t bottom_index = _get_bottom_vertex_index(p_resolution, segment);
-		const int32_t next_bottom_index = _get_bottom_vertex_index(p_resolution, segment + 1);
+		const int32_t top_index = get_top_vertex_index(p_resolution, segment);
+		const int32_t next_top_index = get_top_vertex_index(p_resolution, segment + 1);
+		const int32_t bottom_index = get_bottom_vertex_index(p_resolution, segment);
+		const int32_t next_bottom_index = get_bottom_vertex_index(p_resolution, segment + 1);
 
 		const int32_t triangle_index = segment * 4;
 
@@ -121,11 +121,11 @@ MeshData DebugCylinderDrawer::_create_fill_cylinder(int32_t p_resolution) {
 	return mesh_data;
 }
 
-void DebugCylinderDrawer::_set_circle_vertices(MeshData& r_mesh_data, int32_t p_index_offset, int32_t p_resolution, const Vector3& p_offset, real_t p_radius) {
-	const double step = Math::TAU / static_cast<double>(p_resolution);
+void DebugCylinderDrawer::set_circle_vertices(MeshData& r_mesh_data, int32_t p_index_offset, int32_t p_resolution, const Vector3& p_offset, real_t p_radius) {
+	const double step = Math::TAU / p_resolution;
 
 	for (int32_t segment = 0; segment < p_resolution; segment++) {
-		const double angle = static_cast<double>(segment) * step;
+		const double angle = segment * step;
 		const real_t x = static_cast<real_t>(Math::cos(angle));
 		const real_t z = static_cast<real_t>(Math::sin(angle));
 
@@ -133,10 +133,10 @@ void DebugCylinderDrawer::_set_circle_vertices(MeshData& r_mesh_data, int32_t p_
 	}
 }
 
-int32_t DebugCylinderDrawer::_get_top_vertex_index(int32_t p_resolution, int32_t p_segment) {
-	return p_resolution + static_cast<int32_t>(Math::posmod(static_cast<int64_t>(p_segment), static_cast<int64_t>(p_resolution)));
+int32_t DebugCylinderDrawer::get_top_vertex_index(int32_t p_resolution, int32_t p_segment) {
+	return p_resolution + static_cast<int32_t>(Math::posmod(p_segment, p_resolution));
 }
 
-int32_t DebugCylinderDrawer::_get_bottom_vertex_index(int32_t p_resolution, int32_t p_segment) {
-	return static_cast<int32_t>(Math::posmod(static_cast<int64_t>(p_segment), static_cast<int64_t>(p_resolution)));
+int32_t DebugCylinderDrawer::get_bottom_vertex_index(int32_t p_resolution, int32_t p_segment) {
+	return static_cast<int32_t>(Math::posmod(p_segment, p_resolution));
 }

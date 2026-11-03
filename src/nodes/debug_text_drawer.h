@@ -15,7 +15,7 @@ class DebugTextDrawer : public DebugElementDrawer {
 	int32_t count = 0;
 	std::vector<Label3D*> labels;
 
-	Label3D* _create_label();
+	Label3D* create_label();
 
 protected:
 	static void _bind_methods() {}

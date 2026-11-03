@@ -113,7 +113,7 @@ void DebugDrawer::_exit_tree() {
 }
 
 void DebugDrawer::_process(double p_delta) {
-	if (!_has_drawers()) {
+	if (!has_drawers()) {
 		return;
 	}
 
@@ -125,7 +125,7 @@ void DebugDrawer::_process(double p_delta) {
 }
 
 void DebugDrawer::late_process(double p_delta) {
-	if (!_has_drawers()) {
+	if (!has_drawers()) {
 		return;
 	}
 
@@ -147,29 +147,29 @@ PackedStringArray DebugDrawer::_get_configuration_warnings() const {
 }
 
 void DebugDrawer::draw_cube(const Vector3& p_center, const Vector3& p_size, const Color& p_line_color, const Color& p_fill_color) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	cube_drawer->draw(p_center, p_size, Quaternion(), p_line_color, p_fill_color);
 }
 
 void DebugDrawer::draw_cube_rotated(const Vector3& p_center, const Vector3& p_size, const Quaternion& p_rotation, const Color& p_line_color, const Color& p_fill_color) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	cube_drawer->draw(p_center, p_size, p_rotation, p_line_color, p_fill_color);
 }
 
 void DebugDrawer::draw_line(const Vector3& p_start, const Vector3& p_end, const Color& p_line_color) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	line_drawer->draw(p_start, p_end, p_line_color);
 }
 
 void DebugDrawer::draw_path(const PackedVector3Array& p_path, const Color& p_line_color) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	for (int64_t i = 0; i < p_path.size() - 1; i++) {
 		line_drawer->draw(p_path[i], p_path[i + 1], p_line_color);
 	}
 }
 
 void DebugDrawer::draw_vector(const Vector3& p_origin, const Vector3& p_vector, const Color& p_line_color, bool p_draw_arrow) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	line_drawer->draw(p_origin, p_origin + p_vector, p_line_color);
 
 	if (!p_draw_arrow || p_vector.is_zero_approx()) {
@@ -192,21 +192,21 @@ void DebugDrawer::draw_vector(const Vector3& p_origin, const Vector3& p_vector, 
 }
 
 void DebugDrawer::draw_sphere(const Vector3& p_center, real_t p_radius, SphereResolution p_resolution, const Color& p_line_color, const Color& p_fill_color) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	sphere_drawer->draw(p_center, p_radius, p_resolution, p_line_color, p_fill_color);
 }
 
 void DebugDrawer::draw_cylinder(const Vector3& p_center, real_t p_height, real_t p_top_radius, real_t p_bottom_radius, int32_t p_resolution, const Color& p_line_color, const Color& p_fill_color) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	cylinder_drawer->draw(p_center, p_height, p_top_radius, p_bottom_radius, Quaternion(), p_resolution, p_line_color, p_fill_color);
 }
 
 void DebugDrawer::draw_cylinder_rotated(const Vector3& p_center, real_t p_height, real_t p_top_radius, real_t p_bottom_radius, const Quaternion& p_rotation, int32_t p_resolution, const Color& p_line_color, const Color& p_fill_color) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	cylinder_drawer->draw(p_center, p_height, p_top_radius, p_bottom_radius, p_rotation, p_resolution, p_line_color, p_fill_color);
 }
 
 void DebugDrawer::draw_text(const String& p_string, const Vector3& p_position, const Color& p_text_color, const Color& p_outline_color, int32_t p_font_size, HorizontalAlignment p_horizontal_alignment, VerticalAlignment p_vertical_alignment) {
-	ERR_FAIL_COND_MSG(!_has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
+	ERR_FAIL_COND_MSG(!has_drawers(), "[Debug Drawer] DebugDrawer must be inside the scene tree to draw.");
 	text_drawer->draw(p_string, p_position, p_text_color, p_outline_color, p_font_size, p_horizontal_alignment, p_vertical_alignment);
 }
