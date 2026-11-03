@@ -1,6 +1,9 @@
 #pragma once
 
+#include "classes/mesh_data.h"
 #include "nodes/debug_shape_drawers/debug_shape_drawer.h"
+
+#include <godot_cpp/classes/standard_material3d.hpp>
 
 #include <unordered_map>
 

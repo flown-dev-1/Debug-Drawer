@@ -1,5 +1,6 @@
 #pragma once
 
+#include "classes/mesh_data.h"
 #include "nodes/debug_shape_drawers/debug_shape_drawer.h"
 
 class DebugLineDrawer : public DebugShapeDrawer {

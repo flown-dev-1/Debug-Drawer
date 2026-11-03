@@ -1,4 +1,5 @@
 #include "nodes/debug_shape_drawers/debug_line_drawer.h"
+#include "classes/debug_drawer_resources.h"
 
 #include <godot_cpp/variant/basis.hpp>
 
@@ -6,7 +7,7 @@ void DebugLineDrawer::_enter_tree() {
 	DebugShapeDrawer::_enter_tree();
 
 	if (lines.multimesh.is_null()) {
-		lines = _create_batch(_create_array_mesh(_create_lines_line(), Mesh::PRIMITIVE_LINES, _create_lines_material()));
+		lines = _create_batch(DebugDrawerResources::create_array_mesh(_create_lines_line(), Mesh::PRIMITIVE_LINES, DebugDrawerResources::create_lines_material()));
 	}
 }
 
@@ -22,7 +23,7 @@ void DebugLineDrawer::draw(const Vector3& p_start, const Vector3& p_end, const C
 }
 
 void DebugLineDrawer::finalize() {
-	_finalize_batch(lines);
+	lines.finalize();
 }
 
 void DebugLineDrawer::reset() {

@@ -1,7 +1,9 @@
 #pragma once
 
+#include "classes/mesh_data.h"
 #include "nodes/debug_shape_drawers/debug_shape_drawer.h"
 
+#include <godot_cpp/classes/shader_material.hpp>
 #include <godot_cpp/variant/quaternion.hpp>
 
 class DebugCylinderDrawer : public DebugShapeDrawer {

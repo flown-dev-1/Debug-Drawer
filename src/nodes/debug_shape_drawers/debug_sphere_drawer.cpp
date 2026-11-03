@@ -1,4 +1,5 @@
 #include "nodes/debug_shape_drawers/debug_sphere_drawer.h"
+#include "classes/debug_drawer_resources.h"
 #include "nodes/debug_drawer.h"
 
 #include <godot_cpp/core/math.hpp>
@@ -26,13 +27,13 @@ void DebugSphereDrawer::draw(const Vector3& p_center, real_t p_radius, int32_t p
 }
 
 void DebugSphereDrawer::finalize() {
-	_finalize_batches(lines);
-	_finalize_batches(fill);
+	finalize_batches(lines);
+	finalize_batches(fill);
 }
 
 void DebugSphereDrawer::reset() {
-	_reset_batches(lines);
-	_reset_batches(fill);
+	reset_batches(lines);
+	reset_batches(fill);
 }
 
 MultiMeshBatch& DebugSphereDrawer::_get_lines_batch(int32_t p_resolution) {
@@ -63,10 +64,10 @@ MultiMeshBatch& DebugSphereDrawer::_get_lines_batch(int32_t p_resolution) {
 	}
 
 	if (lines_material.is_null()) {
-		lines_material = _create_lines_material();
+		lines_material = DebugDrawerResources::create_lines_material();
 	}
 
-	Ref<ArrayMesh> mesh = _create_array_mesh(line_mesh_data, Mesh::PRIMITIVE_LINES, lines_material);
+	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(line_mesh_data, Mesh::PRIMITIVE_LINES, lines_material);
 	return lines.emplace(p_resolution, _create_batch(mesh)).first->second;
 }
 
@@ -77,10 +78,10 @@ MultiMeshBatch& DebugSphereDrawer::_get_fill_batch(int32_t p_resolution) {
 	}
 
 	if (fill_material.is_null()) {
-		fill_material = _create_fill_material();
+		fill_material = DebugDrawerResources::create_fill_material();
 	}
 
-	Ref<ArrayMesh> mesh = _create_array_mesh(_create_ico_sphere(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
+	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(_create_ico_sphere(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
 	return fill.emplace(p_resolution, _create_batch(mesh)).first->second;
 }
 

@@ -1,4 +1,5 @@
 #include "nodes/debug_shape_drawers/debug_cube_drawer.h"
+#include "classes/debug_drawer_resources.h"
 
 #include <godot_cpp/variant/basis.hpp>
 
@@ -6,11 +7,11 @@ void DebugCubeDrawer::_enter_tree() {
 	DebugShapeDrawer::_enter_tree();
 
 	if (lines.multimesh.is_null()) {
-		lines = _create_batch(_create_array_mesh(_create_lines_cube(), Mesh::PRIMITIVE_LINES, _create_lines_material()));
+		lines = _create_batch(DebugDrawerResources::create_array_mesh(_create_lines_cube(), Mesh::PRIMITIVE_LINES, DebugDrawerResources::create_lines_material()));
 	}
 
 	if (fill.multimesh.is_null()) {
-		fill = _create_batch(_create_array_mesh(_create_fill_cube(), Mesh::PRIMITIVE_TRIANGLES, _create_fill_material()));
+		fill = _create_batch(DebugDrawerResources::create_array_mesh(_create_fill_cube(), Mesh::PRIMITIVE_TRIANGLES, DebugDrawerResources::create_fill_material()));
 	}
 }
 
@@ -31,8 +32,8 @@ void DebugCubeDrawer::draw(const Vector3& p_center, const Vector3& p_size, const
 }
 
 void DebugCubeDrawer::finalize() {
-	_finalize_batch(lines);
-	_finalize_batch(fill);
+	lines.finalize();
+	fill.finalize();
 }
 
 void DebugCubeDrawer::reset() {

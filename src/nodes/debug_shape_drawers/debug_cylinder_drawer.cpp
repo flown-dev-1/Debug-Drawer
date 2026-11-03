@@ -1,4 +1,5 @@
 #include "nodes/debug_shape_drawers/debug_cylinder_drawer.h"
+#include "classes/debug_drawer_resources.h"
 
 #include "shaders/cylinder_fill.h"
 #include "shaders/cylinder_lines.h"
@@ -28,13 +29,13 @@ void DebugCylinderDrawer::draw(const Vector3& p_center, real_t p_height, real_t 
 }
 
 void DebugCylinderDrawer::finalize() {
-	_finalize_batches(lines);
-	_finalize_batches(fill);
+	finalize_batches(lines);
+	finalize_batches(fill);
 }
 
 void DebugCylinderDrawer::reset() {
-	_reset_batches(lines);
-	_reset_batches(fill);
+	reset_batches(lines);
+	reset_batches(fill);
 }
 
 MultiMeshBatch& DebugCylinderDrawer::_get_lines_batch(int32_t p_resolution) {
@@ -44,10 +45,10 @@ MultiMeshBatch& DebugCylinderDrawer::_get_lines_batch(int32_t p_resolution) {
 	}
 
 	if (lines_material.is_null()) {
-		lines_material = _create_shader_material(DebugDrawerShaders::CYLINDER_LINES);
+		lines_material = DebugDrawerResources::create_shader_material(DebugDrawerShaders::CYLINDER_LINES);
 	}
 
-	Ref<ArrayMesh> mesh = _create_array_mesh(_create_lines_cylinder(p_resolution), Mesh::PRIMITIVE_LINES, lines_material);
+	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(_create_lines_cylinder(p_resolution), Mesh::PRIMITIVE_LINES, lines_material);
 	return lines.emplace(p_resolution, _create_batch(mesh, true)).first->second;
 }
 
@@ -58,10 +59,10 @@ MultiMeshBatch& DebugCylinderDrawer::_get_fill_batch(int32_t p_resolution) {
 	}
 
 	if (fill_material.is_null()) {
-		fill_material = _create_shader_material(DebugDrawerShaders::CYLINDER_FILL);
+		fill_material = DebugDrawerResources::create_shader_material(DebugDrawerShaders::CYLINDER_FILL);
 	}
 
-	Ref<ArrayMesh> mesh = _create_array_mesh(_create_fill_cylinder(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
+	Ref<ArrayMesh> mesh = DebugDrawerResources::create_array_mesh(_create_fill_cylinder(p_resolution), Mesh::PRIMITIVE_TRIANGLES, fill_material);
 	return fill.emplace(p_resolution, _create_batch(mesh, true)).first->second;
 }
 
