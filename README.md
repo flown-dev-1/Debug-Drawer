@@ -1,20 +1,26 @@
-# Debug Drawer (GDExtension)
+# Debug Drawer
 ![Logo](https://github.com/flown-dev-1/DebugDrawer/blob/main/banner.png)
 
-A 3D debug shape drawer for Godot, with a simple immediate-mode style API. This is the C++ (GDExtension) version of the [Debug Drawer addon](https://github.com/flown-dev-1/DebugDrawer). It has the same API as the GDScript addon and is faster.
-
-Requires Godot 4.3 or newer.
+A 3D debug shape drawer addon for Godot. It allows you to draw primitive shapes using a simple, immediate-mode style API.
 
 # Installation
-1. Download the build for your platforms from the GitHub Releases page.
-2. Create an `res://addons` folder in your Godot project if you do not already have one.
-3. Copy the `debug_drawer` folder into your `res://addons` folder, so you have `res://addons/debug_drawer/debug_drawer.gdextension`.
-4. Restart the Godot editor.
-
-There is no plugin to enable. The `DebugDrawer` node and the `GlobalDebugDrawer` instance are available as soon as the extension loads.
+You can install the addon manually or through the asset store.
 
 > [!NOTE]
-> If you are switching from the GDScript addon, remove the `addons/debug_drawer` folder and the `GlobalDebugDrawer` autoload (Project Settings > Globals) first. Scenes that used the old `debug_drawer.gd` script need their `DebugDrawer` node re-added as the built-in `DebugDrawer` type. `DebugSphereDrawer.SphereResolution` is now `DebugDrawer.SphereResolution`.
+> If your version of Godot is not supported by the latest version of the addon you may need to download the addon manually so that you can pick an older version.
+
+## Manual Installation
+1. Download the addon from the GitHub Releases page.
+2. Unzip the addon folder.
+3. Create an `res://addons` folder in your Godot project if you do not already have one.
+4. Drag the addon folder into your `res://addons` folder.
+5. Enable "Debug Drawer" in `Project Settings > Plugins`.
+
+## Asset Store Installation
+1. Navigate to the `Asset Store` tab in your Godot project.
+2. Locate the "Debug Drawer" addon and click on it.
+3. Click the download button.
+4. Enable "Debug Drawer" in `Project Settings > Plugins`.
 
 # Setup
 
@@ -59,10 +65,6 @@ Debug Drawer provides a variety of different functions for drawing shapes, inclu
 | `draw_cylinder_rotated` | Draws a cylinder rotated around its center. |
 | `draw_text` | Draws a given string with option for billboarding. |
 
-Every function is documented in the editor's built-in help (search for `DebugDrawer` or `GlobalDebugDrawer`).
-
-The maximum number of each shape per frame is set by `debug_drawer/max_shape_instances` in Project Settings (default 1024).
-
 # Multiple Debug Drawers
 
 Debug Drawer allows you to have multiple `DebugDrawer` nodes with the caveat that only one can be global. Global `DebugDrawer`s can be accessed from any script via the `GlobalDebugDrawer` instance, whereas non-global `DebugDrawer`s require a reference. For example:
@@ -78,30 +80,12 @@ func _process(_delta: float) -> void:
   local_debug_drawer.draw_cube(Vector3.ZERO, Vector3.ONE, Color.RED)
 ```
 
-# Building from source
-
-1. Clone this repository and fetch godot-cpp: `git submodule update --init`
-2. Install [SCons](https://scons.org/) and a C++17 compiler.
-3. Run `scons` (debug build) or `scons target=template_release` from the repository root.
-
-The library is written to `project/addons/debug_drawer/bin/<platform>/`. Open `project/` in Godot and run the main scene to test it. Press Space to toggle the stress test.
-
-The `make_build.yml` workflow (run it from the GitHub Actions tab) builds every platform and uploads the libraries as a zip. To make a release, put them in `project/addons/debug_drawer/bin/` and zip the `debug_drawer` folder.
-
-To generate `compile_commands.json` for your IDE, run `scons compiledb=yes`.
-
-## Source layout
-
-| File | Purpose |
-| --- | --- |
-| `src/autoloads/` | The `GlobalDebugDrawer` instance. |
-| `src/classes/` | Project settings and mesh-building helpers. |
-| `src/nodes/` | The `DebugDrawer` node, the text drawer and the late processer. |
-| `src/nodes/debug_shape_drawers/` | One internal node per shape type, each batching its shapes into MultiMeshes. |
-| `src/shaders/` | The cylinder shaders, embedded as strings. |
-| `src/register_types.cpp` | Class registration, project setting and instance setup. |
-| `doc_classes/` | Class reference shown in the editor's help. |
-
 # Getting Help
 * If you are struggling with using Debug Drawer, feel free to ask for help in my [Discord server](https://flowndev.com/discord).
 * If you have found a bug or issue with the addon, please create an [issue](https://github.com/flown-dev-1/Debug-Drawer/issues).
+
+# AI Use
+
+AI was used to port my original GDScript version of this addon to GDExtension. The generated code has been thoroughly reviewed by me.
+
+You can find the original GDScript addon [here](https://github.com/flown-dev-1/Debug-Drawer-GDScript).
