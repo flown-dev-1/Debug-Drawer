@@ -86,6 +86,8 @@ func _process(_delta: float) -> void:
 
 # AI Use
 
-AI was used to port my original GDScript version of this addon to GDExtension. The generated code has been thoroughly reviewed by me.
+AI was used to port my original GDScript version of this addon to GDExtension. AI was also used in the original GDScript version to generate the sphere and cylinder drawing logic based on my square and line drawer implementations.
+
+All generated code has been thoroughly reviewed by me.
 
 You can find the original GDScript addon [here](https://github.com/flown-dev-1/Debug-Drawer-GDScript).
