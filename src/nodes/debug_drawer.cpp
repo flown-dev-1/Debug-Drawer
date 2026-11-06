@@ -182,14 +182,15 @@ void DebugDrawer::draw_vector(const Vector3& p_origin, const Vector3& p_vector, 
 	const Vector3 normalized_vector = p_vector.normalized();
 
 	cylinder_drawer->draw(
-			p_origin + p_vector - (normalized_vector * arrow_scale) / 2.0f,
-			arrow_scale * 2.0f,
-			0.0f,
-			arrow_scale / 1.5f,
-			Quaternion(Vector3(0, 1, 0), normalized_vector),
-			16,
-			Color(0, 0, 0, 0),
-			p_line_color);
+		p_origin + p_vector - (normalized_vector * arrow_scale) / 2.0f,
+		arrow_scale * 2.0f,
+		0.0f,
+		arrow_scale / 1.5f,
+		Quaternion(Vector3(0, 1, 0), normalized_vector),
+		16,
+		Color(0, 0, 0, 0),
+		p_line_color
+	);
 }
 
 void DebugDrawer::draw_sphere(const Vector3& p_center, real_t p_radius, SphereResolution p_resolution, const Color& p_line_color, const Color& p_fill_color) {

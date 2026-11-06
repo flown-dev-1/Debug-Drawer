@@ -1,13 +1,14 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cw7lg7y7105yy"]
 
-[ext_resource type="Script" path="res://test_drawer.gd" id="1_tests"]
+[ext_resource type="Script" uid="uid://hf7ao70kwfld" path="res://test_drawer.gd" id="1_tests"]
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=2142317591]
 
-[node name="DebugDrawer" type="DebugDrawer" parent="."]
+[node name="DebugDrawer" type="DebugDrawer" parent="." unique_id=368923239]
+process_priority = -1000
 
-[node name="Tests" type="Node" parent="."]
+[node name="Tests" type="Node" parent="." unique_id=1612398471]
 script = ExtResource("1_tests")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=54010248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.2724586)

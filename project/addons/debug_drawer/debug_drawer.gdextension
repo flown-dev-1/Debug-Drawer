@@ -57,4 +57,4 @@ web.wasm32.single.release = "./bin/web/libDebug-Drawer.web.template_release.wasm
 web.wasm32.double.release = "./bin/web/libDebug-Drawer.web.template_release.wasm32.double.nothreads.wasm"
 
 [icons]
-DebugDrawer = "res://addons/debug_drawer/icons/drawer.svg"
+DebugDrawer = "icons/drawer.svg"
