@@ -4,7 +4,7 @@
 A 3D debug shape drawer addon for Godot. It allows you to draw primitive shapes using a simple, immediate-mode style API.
 
 # Installation
-You can install the addon manually or through the asset store.
+You can install the addon manually or through the Asset Store.
 
 > [!NOTE]
 > If your version of Godot is not supported by the latest version of the addon you may need to download the addon manually so that you can pick an older version.
